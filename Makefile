@@ -1,6 +1,10 @@
 build:
 	docker-compose build
-run:
+clean:
+	rm -rf rust-api/target
+up:
 	docker-compose up -d
+down:
+	docker-compose down
 solo-api:
 	docker-compose up rust-api
