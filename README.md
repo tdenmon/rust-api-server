@@ -1,6 +1,6 @@
-# rust-api-test
+# rust-api-server
 
-A simple API written in Rust with a non-persistent Postgres data backend.
+A simple API server written in Rust with a non-persistent Postgres data backend.
 
 Uses info/code from these two tutorials:
 
