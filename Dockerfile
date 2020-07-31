@@ -20,6 +20,4 @@ COPY rust-api/diesel.toml .
 ADD rust-api/migrations ./migrations
 ADD rust-api/src ./src
 RUN cargo build --release
-#ENTRYPOINT [ "/bin/bash", "-l", "-c" ]
 CMD diesel setup && target/release/rust-api
-#CMD ["diesel setup && target/release/rust-api"]
