@@ -16,8 +16,8 @@ Other examples of this sort of thing:
 You can access three endpoints with minimal effort as-is:
 
 - /users: This returns all users currently stored in the database.
-  curl http://localhost:8000/api/v1/users
+  - curl http://localhost:8000/api/v1/users
 - /newUser: This adds a new user. Requires the newuser.json file.
-  curl -X POST -H "Content-Type: application/json" -d @newuser.json http://localhost:8000/api/v1/newUser
+  - curl -X POST -H "Content-Type: application/json" -d @newuser.json http://localhost:8000/api/v1/newUser
 - /getUser: Returns a given user. Requires the newuser.json file.
-  curl -X POST -H "Content-Type: application/json" -d @newuser.json http://localhost:8000/api/v1/getUser
+  - curl -X POST -H "Content-Type: application/json" -d @newuser.json http://localhost:8000/api/v1/getUser
