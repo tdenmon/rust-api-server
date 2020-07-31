@@ -13,7 +13,6 @@ COPY rust-api/Cargo.toml Cargo.toml
 RUN mkdir src
 RUN echo "fn main() {println!(\"If you see this, the build broke :(\")}" > src/main.rs
 RUN RUSTFLAGS=-Clinker=musl-gcc cargo build --release --target=x86_64-unknown-linux-musl
-RUN rm -rf src
 RUN rm -f target/x86_64-unknown-linux-musl/release/deps/rust_api*
 
 # This builds any changes to our source code
