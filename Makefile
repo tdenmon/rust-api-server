@@ -3,7 +3,8 @@ build:
 clean:
 	rm -rf rust-api/target
 up:
-	docker-compose up -d
+	docker-compose up -d postgres
+	docker-compose up -d rust-api
 down:
 	docker-compose down
 solo-api:
