@@ -10,13 +10,16 @@ WORKDIR /usr/src/rust-api
 # This section ensures that changing our source code doesn't cause us to have
 # to recompile all of our dependencies by leveraging the Docker layer system
 COPY rust-api/Cargo.toml Cargo.toml
-RUN mkdir src/
+RUN mkdir src
 RUN echo "fn main() {println!(\"If you see this, the build broke :(\")}" > src/main.rs
 RUN RUSTFLAGS=-Clinker=musl-gcc cargo build --release --target=x86_64-unknown-linux-musl
-RUN rm -f target/x86_64-unknown-linux-musl/release/deps/rust-api*
+RUN rm -rf src
+RUN rm -f target/x86_64-unknown-linux-musl/release/deps/rust_api*
 
 # This builds any changes to our source code
-COPY rust-api/ .
+COPY rust-api/diesel.toml .
+ADD rust-api/migrations ./migrations
+ADD rust-api/src ./src
 RUN RUSTFLAGS=-Clinker=musl-gcc cargo build --release --target=x86_64-unknown-linux-musl
 
 FROM alpine:latest
