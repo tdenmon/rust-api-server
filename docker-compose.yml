@@ -11,8 +11,6 @@ services:
       - "postgres"
     depends_on:
       - postgres
-    networks:
-      - backend
   postgres:
     image: postgres:latest
     environment:
@@ -20,8 +18,3 @@ services:
     ports:
       - "5432:5432"
     restart: always
-    networks:
-      - backend
-networks:
-  backend:
-    driver: "bridge"
