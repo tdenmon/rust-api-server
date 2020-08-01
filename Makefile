@@ -8,4 +8,10 @@ up:
 down:
 	docker-compose down
 solo-api:
-	docker-compose up rust-api
+	docker-compose up -d rust-api
+solo-db:
+	docker-compose up -d postgres
+ps:
+	docker-compose ps
+logs:
+	docker-compose logs
