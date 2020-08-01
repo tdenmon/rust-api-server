@@ -9,3 +9,7 @@ down:
 	docker-compose down
 solo-api:
 	docker-compose up rust-api
+ps:
+	docker-compose ps
+logs:
+	docker-compose logs
