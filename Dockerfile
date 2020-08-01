@@ -20,4 +20,4 @@ COPY rust-api/diesel.toml .
 ADD rust-api/migrations ./migrations
 ADD rust-api/src ./src
 RUN cargo build --release
-CMD diesel setup && target/release/rust-api
+CMD sleep 5 && diesel setup && target/release/rust-api
