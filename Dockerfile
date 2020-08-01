@@ -4,7 +4,6 @@ FROM rust:latest as cargo-build
 RUN apt-get update
 RUN apt-get install musl-tools -y
 RUN rustup override set nightly
-#RUN apt-get install libpq-dev
 RUN rustup target add x86_64-unknown-linux-musl --toolchain=nightly
 
 WORKDIR rust-api
@@ -14,7 +13,7 @@ WORKDIR rust-api
 COPY rust-api/Cargo.toml Cargo.toml
 RUN mkdir src
 RUN echo "fn main() {println!(\"If you see this, the build broke :(\")}" > src/main.rs
-RUN RUSTFLAGS=-Clinker=musl-gcc cargo build --release --target=x86_64-unknown-linux-musl
+RUN cargo build --release --target=x86_64-unknown-linux-musl
 RUN ls target/x86_64-unknown-linux-musl/release/deps
 RUN rm -f target/x86_64-unknown-linux-musl/release/deps/rust_api*
 
@@ -34,7 +33,7 @@ FROM cargo-build as cargo-code-compiler
 COPY rust-api/diesel.toml .
 ADD rust-api/migrations ./migrations
 ADD rust-api/src ./src
-RUN RUSTFLAGS=-Clinker=musl-gcc cargo build --release --target=x86_64-unknown-linux-musl
+RUN cargo build --release --target=x86_64-unknown-linux-musl
 
 # This is our final minimal(ish) production image
 FROM final-image-base as final-image
@@ -44,6 +43,4 @@ COPY --from=cargo-code-compiler rust-api/diesel.toml .
 COPY --from=cargo-code-compiler rust-api/migrations ./migrations
 COPY --from=cargo-code-compiler rust-api/src ./src
 COPY --from=cargo-code-compiler rust-api/target/x86_64-unknown-linux-musl/release/rust-api /usr/local/bin/rust-api
-CMD sleep 5 && /usr/local/bin/rust-api
-#&& /root/.cargo/bin/diesel setup 
-#&& /usr/local/bin/rust-api
+CMD sleep 5 && /root/.cargo/bin/diesel setup && /usr/local/bin/rust-api
